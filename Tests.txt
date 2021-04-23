@@ -1,0 +1,24 @@
+YAML
+orderID: 12345
+shopperName: Ваня Иванов
+shopperEmail: ivanov@example.com
+contents:
+  - productID: 34
+    productName: Супер товар
+    quantity: 1
+  - productID: 56
+    productName: Чудо товар
+    quantity: 3
+orderCompleted: true
+
+JSON
+{"orderID":12345,"shopperName":"Ваня Иванов","shopperEmail":"ivanov@example.com","contents":[{"productID":34,"productName":"Супер товар","quantity":1},{"productID":56,"productName":"Чудо товар","quantity":3}],"orderCompleted":true}
+
+XML
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+ <name>A Song of Ice and Fire</name>
+ <author>George R. R. Martin</author>
+ <language>English</language>
+ <genre>Epic fantasy</genre>
+</book>

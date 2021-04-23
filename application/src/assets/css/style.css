@@ -1,0 +1,110 @@
+body {
+  overflow: hidden;
+}
+
+#MainSection {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.windowsContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 400px 200px 400px;
+      grid-template-columns: 400px 200px 400px;
+  grid-gap: 30px;
+  grid-auto-rows: 400px;
+}
+
+.controlPanel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.controlPanel .convSelect {
+  width: 150px;
+  margin: 7px;
+}
+
+.controlPanel .convButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 150px;
+  height: 35px;
+  margin: 30px;
+  background: crimson;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transition: background linear 0.1s;
+  transition: background linear 0.1s;
+}
+
+.controlPanel .convButton:hover {
+  background: rgba(220, 20, 60, 0.8);
+}
+
+.textData {
+  width: calc(100% - 5px);
+  height: calc(100% - 5px);
+  padding: 5px;
+  resize: none;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1179px) {
+  .windowsContainer {
+    -ms-grid-columns: 300px 150px 300px;
+        grid-template-columns: 300px 150px 300px;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 869px) {
+  #MainSection {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    overflow-y: scroll;
+  }
+  .windowsContainer {
+    padding-top: 30px;
+    -ms-grid-columns: 400px;
+        grid-template-columns: 400px;
+    padding-bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 459px) {
+  .windowsContainer {
+    -ms-grid-columns: 240px;
+        grid-template-columns: 240px;
+  }
+}
+/*# sourceMappingURL=style.css.map */
