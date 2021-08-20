@@ -11,9 +11,9 @@ class Windows extends React.Component {
         super()
         this.state = {
             formats: Formats,
-            fromFormat: null,
-            toFormat: null,
-            fromData: null,
+            fromFormat: "...",
+            toFormat: "...",
+            fromData: "",
             toData: "",
         }
         this.getFormat = this.getFormat.bind(this)
@@ -44,39 +44,54 @@ class Windows extends React.Component {
                     fromData: event.target.value
                 }
             })
-            console.log(event.target.value)
+            console.log("fromData:" + event.target.value)
         } else {
             this.setState(() => {
                 return {
                     toData: event.target.value
                 }
             })
-            console.log(event.target.value)
+            console.log("toData:" + event.target.value)
         }
     }
 
-    format() {
+    format(side) {
         let fromFormat = this.state.fromFormat;
         let fromData = this.state.fromData;
         let toFormat = this.state.toFormat;
         let fromDataToJson;
         let toData;
+        if (!side) {
+            //alert(side)
+            fromFormat = this.state.toFormat;
+            fromData = this.state.toData;
+            toFormat = this.state.fromFormat;
+        }
         switch (fromFormat) {
             case '...':
                 console.log('From format is not defined');
                 alert('From format is not defined');
-                break;
+                return;
             case 'JSON':
                 fromDataToJson = fromData;
                 break;
             case 'XML':
-                let options = {compact: true};
+                let options = {ignoreDeclaration: false, compact: true};
                 try {
                     fromDataToJson = xml.xml2json(fromData, options);
-                    //console.log(fromDataToJson);
+                    console.log(fromDataToJson);
                 } catch (e) {
-                    console.log(e);
-                    alert(e);
+                    //console.log(`<root>${fromData}</root>`);
+                    try {
+                        fromDataToJson = xml.xml2json(`<root>${fromData}</root>`, options);
+                    }
+                    catch (e2) {
+                        console.log(e);
+                        alert(e);
+
+                        console.log(e2);
+                        alert(e2);
+                    }
                 }
                 break;
             case 'YAML':
@@ -87,7 +102,7 @@ class Windows extends React.Component {
                     console.log(e);
                     alert(e);
                 }
-              break;
+                break;
             default:
                 console.log('Something is wrong');
                 alert('Something is wrong...');
@@ -100,6 +115,7 @@ class Windows extends React.Component {
             } catch (e) {
                 console.log(e);
                 alert(e);
+                return;
             }
         }
         
@@ -107,7 +123,7 @@ class Windows extends React.Component {
             case '...':
                 console.log('To format is not defined');
                 alert('To format is not defined');
-                break;
+                return;
             case 'JSON':
                 try {
                     toData = JSON.stringify(fromDataToJson);
@@ -118,11 +134,11 @@ class Windows extends React.Component {
                 }
                 break;
             case 'XML':
+                let options = {ignoreDeclaration: false, compact: true};
+                if (!(fromDataToJson['declaration'] || fromDataToJson['_declaration'])) {
+                    options['ignoreDeclaration'] = true;
+                }
                 try {
-                    let options = {ignoreDeclaration: false, compact: true};
-                    if (!(fromDataToJson['declaration'] || fromDataToJson['_declaration'])) {
-                        options['ignoreDeclaration'] = true;
-                    }
                     toData = xml.js2xml(fromDataToJson, options);
                 } catch (e) {
                     console.log(e);
@@ -143,6 +159,11 @@ class Windows extends React.Component {
                 alert('Something is wrong...');
         }
         this.setState(() => {
+            if (!side) {
+                return {
+                    fromData: toData
+                }
+            }
             return {
                 toData: toData
             }
@@ -153,18 +174,27 @@ class Windows extends React.Component {
       return (
         <div className="windowsContainer">
             <div className="firstWindow">
-                <textarea className="textData convFrom" placeholder={this.state.fromFormat} onChange={event => this.getData(true, event)}></textarea>
+                <textarea className="textData convFrom" value={this.state.fromData} placeholder={this.state.fromFormat} onChange={event => this.getData(true, event)}></textarea>
             </div>
             <div className="controlPanel">
-                from
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
                 <select className="convSelect convFromSelect" onChange={event => this.getFormat(true, event)}>
                     {optionsComponents}
                 </select>
-                to
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
                 <select className="convSelect convToSelect" onChange={event => this.getFormat(false, event)}>
                     {optionsComponents}
                 </select> 
-                <div className="convButton" onClick={() => this.format()}>Format</div>
+                <div className="convButtons">
+                    <div className="convButton rightConvButton" onClick={() => this.format(false)}>
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
+                        Convert
+                    </div>
+                    <div className="convButton leftConvButton" onClick={() => this.format(true)}>
+                        Convert
+                        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
+                    </div>
+                </div>
             </div>
             <div className="secondWindow">
                 <textarea className="textData convTo" value={this.state.toData} placeholder={this.state.toFormat} onChange={event => this.getData(false, event)}></textarea>

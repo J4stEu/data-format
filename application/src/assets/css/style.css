@@ -43,11 +43,23 @@ body {
 }
 
 .controlPanel .convSelect {
-  width: 150px;
+  width: 115px;
+  height: 35px;
   margin: 7px;
 }
 
-.controlPanel .convButton {
+.controlPanel .convButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 30px;
+}
+
+.controlPanel .convButtons .convButton {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,9 +69,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 150px;
+  width: 90px;
   height: 35px;
-  margin: 30px;
+  margin: 15px 0;
+  padding: 0 10px;
   background: crimson;
   color: white;
   font-weight: bold;
@@ -68,8 +81,30 @@ body {
   transition: background linear 0.1s;
 }
 
-.controlPanel .convButton:hover {
+.controlPanel .convButtons .convButton svg path {
+  fill: white;
+}
+
+.controlPanel .convButtons .convButton:hover {
   background: rgba(220, 20, 60, 0.8);
+}
+
+.controlPanel .convButtons .leftConvButton {
+  padding-right: 15px;
+}
+
+.controlPanel .convButtons .leftConvButton svg {
+  position: relative;
+  left: 5px;
+}
+
+.controlPanel .convButtons .rightConvButton {
+  padding-left: 15px;
+}
+
+.controlPanel .convButtons .rightConvButton svg {
+  position: relative;
+  right: 5px;
 }
 
 .textData {

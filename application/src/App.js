@@ -4,9 +4,7 @@ import Windows from './components/Windows';
 class App extends React.Component {
   constructor() {
     super()
-    this.state = {
-
-    }
+    this.state = {}
   }
   render() {
     return (

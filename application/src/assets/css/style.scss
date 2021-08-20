@@ -8,6 +8,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    //background: rgba(0, 0, 0, 1);
 }
 .windowsContainer {
     display: grid;
@@ -22,24 +23,57 @@ body {
     flex-direction: column;
 
     .convSelect {
-        width: 150px;
+        width: 115px;
+        height: 35px;
         margin: 7px;
     }
-    .convButton {
+    .convButtons {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 150px;
-        height: 35px;
+        flex-direction: column;
         margin: 30px;
-        background: crimson;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background linear 0.1s;
 
-        &:hover {
-            background: rgba(220, 20, 60, 0.8);
+        .convButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90px;
+            height: 35px;
+            margin: 15px 0;
+            padding: 0 10px;
+            background: crimson;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background linear 0.1s;
+
+            svg {
+                
+                path {
+                    fill: white;
+                }
+            }
+
+            &:hover {
+                background: rgba(220, 20, 60, 0.8);
+            }
+        }
+
+        .leftConvButton {
+            padding-right: 15px;
+
+            svg {
+                position: relative;
+                left: 5px;
+            }
+        }
+
+        .rightConvButton {
+            padding-left: 15px;
+
+            svg {
+                position: relative;
+                right: 5px;
+            }
         }
     }
 }
